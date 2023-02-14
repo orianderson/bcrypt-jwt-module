@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es2017",                                 
+    "lib": ["es6"],                                     
+    "experimentalDecorators": true,                     
+    "emitDecoratorMetadata": true,                      
+    "module": "commonjs",                               
+    "rootDir": "src",                                    
+    "baseUrl": "./",                                     
+    "resolveJsonModule": true,                           
+    "allowJs": true,                                     
+    "declaration": true,                                 
+    "outDir": "dist",                                    
+    "removeComments": true,                              
+    "allowSyntheticDefaultImports": true,                
+    "esModuleInterop": true,                             
+    "forceConsistentCasingInFileNames": false,           
+    "strict": true,                                      
+    "noImplicitAny": false,                              
+    "strictNullChecks": false,                           
+    "strictBindCallApply": false,                        
+    "strictPropertyInitialization": false,               
+    "noFallthroughCasesInSwitch": false,                
+    "skipLibCheck": true,
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+  }
+}
