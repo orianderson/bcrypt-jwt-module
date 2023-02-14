@@ -12,10 +12,7 @@ export class JwtService implements IJwtService {
     }
   }
 
-  async createToken(
-    payload: Object,
-    options: Options
-  ): Promise<string | unknown> {
+  createToken(payload: Object, options: Options): string | unknown {
     const token = jwt.sign(payload, options.secret, {
       expiresIn: options.expiresIn,
     });
