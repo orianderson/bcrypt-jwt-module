@@ -1,2 +1,2 @@
-export * from "./IBcrypt";
-export * from "./IJwt";
+export * from "./IBcryptService";
+export * from "./IJwtService";

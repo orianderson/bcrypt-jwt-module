@@ -1,4 +1,4 @@
 export interface IBcryptService {
-  hash(hashString: string): Promise<string>;
+  hash(password: string): Promise<string>;
   compare(password: string, hashPassword: string): Promise<boolean>;
 }
