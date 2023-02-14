@@ -4,12 +4,11 @@ export interface DecodeOptions {
 }
 
 export interface JwtPayload {
-  [key: string]: any;
-  iss?: string | undefined;
-  sub?: string | undefined;
-  aud?: string | string[] | undefined;
+  _id?: string;
   exp?: number | undefined;
-  nbf?: number | undefined;
-  iat?: number | undefined;
-  jti?: string | undefined;
+}
+
+export interface Options {
+  secret: string;
+  expiresIn?: string;
 }

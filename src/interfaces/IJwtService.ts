@@ -1,10 +1,7 @@
-import { DecodeOptions, JwtPayload } from "../types";
+import { DecodeOptions, JwtPayload, Options } from "../types";
 
 export interface IJwtService {
-  checkToken(token: string, secret: string): Promise<JwtPayload | string>;
-  createToken(
-    payload: Object,
-    options: { secret?: string; expiresIn?: string }
-  ): Promise<string>;
+  checkToken(token: string, secret: string): JwtPayload | string;
+  createToken(payload: Object, options: Options): Promise<string | unknown>;
   decodeToken(token: string, options: DecodeOptions): any;
 }
