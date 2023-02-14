@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import { IJwtService } from "../interfaces";
-import { DecodeOptions, JwtPayload, Options } from "../types";
+import { DecodeOptions, JwtPayload, Options } from "../@types";
 
 export class JwtService implements IJwtService {
   checkToken(token: string, secret: string): JwtPayload | string {

@@ -1,4 +1,4 @@
-import { DecodeOptions, JwtPayload, Options } from "../types";
+import { DecodeOptions, JwtPayload, Options } from "../@types";
 
 export interface IJwtService {
   checkToken(token: string, secret: string): JwtPayload | string;

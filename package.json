@@ -1,12 +1,13 @@
 {
   "name": "bcrypt-jwt-module",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "author": "Anderson Oliveira",
   "scripts": {
     "test": "jest --config ./jest.config.ts",
-    "test:watch": "jest --config ./jest.config.ts --watch"
+    "test:watch": "jest --config ./jest.config.ts --watch",
+    "build": "npx tsc --declaration"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

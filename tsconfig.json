@@ -2,6 +2,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2017",
+    "rootDir": "src",
     "lib": ["es6"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
