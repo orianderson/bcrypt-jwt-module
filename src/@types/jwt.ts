@@ -27,3 +27,7 @@ export interface UserResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface UserId {
+  id: string;
+}

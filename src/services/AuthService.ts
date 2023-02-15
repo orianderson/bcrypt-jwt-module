@@ -1,4 +1,4 @@
-import { Payload, UserResponse } from "./../@types";
+import { Payload, UserResponse, UserId } from "./../@types";
 import { IBcryptService, IJwtService, IAuthService } from "../interfaces";
 
 export class AuthService implements IAuthService {
@@ -61,9 +61,13 @@ export class AuthService implements IAuthService {
     }
   }
 
-  validadeAccessToken(token: string, secret: string) {
-    const payload = this.jwt.checkToken(token, secret) as { id: string };
+  validadeAccessToken(token: string, secret: string): UserId {
+    try {
+      const payload = this.jwt.checkToken(token, secret) as UserId;
 
-    return payload.id;
+      return payload;
+    } catch (err) {
+      throw new Error("invalid access token");
+    }
   }
 }
