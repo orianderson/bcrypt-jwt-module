@@ -20,7 +20,11 @@ describe("Test JwtService", () => {
       { secret: "secret", expiresIn: "1ms" }
     )) as string;
 
-    expect(jwt.checkToken(token, "secret")).toEqual("jwt expired");
+    try {
+      jwt.checkToken(token, "secret");
+    } catch (err: any) {
+      expect(err.message).toBe("json web token expired");
+    }
   });
 
   it("should return payload", async () => {
@@ -40,6 +44,30 @@ describe("Test JwtService", () => {
       { secret: "secret", expiresIn: "100ms" }
     )) as string;
 
-    expect(jwt.checkToken(token, "sec")).toEqual("invalid signature");
+    try {
+      jwt.checkToken(token, "sec");
+    } catch (err: any) {
+      expect(err.message).toBe("invalid signature");
+    }
+  });
+
+  it("should throw error, invalid options", async () => {
+    expect(() =>
+      jwt.createToken(
+        { _id: "enganderson" },
+        { secret: "secret", expiresIn: null }
+      )
+    ).toThrowError();
+  });
+
+  it("should throw error, message: invalid options", async () => {
+    try {
+      jwt.createToken(
+        { _id: "enganderson" },
+        { secret: "secret", expiresIn: null }
+      );
+    } catch (err: any) {
+      expect(err.message).toBe("invalid options");
+    }
   });
 });
