@@ -17,103 +17,116 @@ Para além do hashing de senhas e validação do usuários, podemos importar e e
 
 Caso de uso do método `signInUser`:
 
-```
-payload = {
-    email, name, id, password
-}
+```javascript
+const payload = {
+  email,
+  name,
+  id,
+  password,
+};
 
-authService.signInUser(password, secret, payload)
+const output = authService.signInUser(password, secret, payload);
 
-output = {
-    email, name, id, accessToken, refreshToken
-}
+console.log(output);
+
+{
+    email: "email",
+    name: "name",
+    id: "id",
+    accessToken: "accessToken",
+    refreshToken: "refreshToken"
+};
 ```
 
 Caso de uso do método `validadeRefreshToken`, para verificar se o refreshToken (válido por 3 dias) é valido e retornar um accessToken (válido por 15 minutos).
 
-```
+```javascript
 
-authService.validadeRefreshToken(refreshToken, secret)
+const output authService.validadeRefreshToken(refreshToken, secret)
 
-output = {
-    accessToken
-}
+console.log(output);
+
+{
+    accessToken: "accessToken",
+};
 ```
 
 Caso de uso do método `validadeAccessToken`, para verificar se o accessToken (válido por 15 minutos). Sendo válido retorna uma objeto de identificação.
 
-```
+```javascript
 
-authService.validadeAccessToken(accessToken, secret)
+const output = authService.validadeAccessToken(accessToken, secret)
 
-output = {
-    id
-}
+console.log(output);
+
+{
+    id: "id",
+};
 ```
 
 Também a possibilidade de utilizar diretamente os serviços: BcryptService e JwtService.
 
 ## Caso de uso - Hashing
 
-```
+```javascript
 import { BcryptService } from "bcrypt-jwt-module";
 
 const bcrypt = new BcryptService();
 
 async function hashPassword() {
-    const hashpassword = await bcrypt.hash("strongpassword");
+  const hashPassword = await bcrypt.hash("strongPassword");
 
-    return hashpassword;
+  return hashPassword;
 }
 
-async function comparePassword (password) {
-    const isUser = await bcrypt.compare(password, hashPassword)
+async function comparePassword(password) {
+  const isUser = await bcrypt.compare(password, hashPassword);
 
-    return isUser;
+  return isUser;
 }
 ```
 
 ## Caso de uso - Json Web Token
 
-```
+```javascript
 import { JwtService } from "bcrypt-jwt-module";
 
 const jwt = new JwtService();
 
 function createToken() {
-    const payload = {
-        _id: "userId"
-    }
+  const payload = {
+    _id: "userId",
+  };
 
-    const options = {
-        secret: "string",
-        expiresIn: "15m"
-    }
-    const token = jwt.createToken(payload, options);
+  const options = {
+    secret: "string",
+    expiresIn: "15m",
+  };
+  const token = jwt.createToken(payload, options);
 
-    return token;
+  return token;
 }
 ```
 
-```
-function verifyToken (token) {
-    const payload = jwt.checkToken(token, secret)
+```javascript
+function verifyToken(token) {
+  const payload = jwt.checkToken(token, secret);
 
-    <!-- payload is the user payload or error message (jwt expired or invalid signature) -->
+  // payload is the user payload or error message (jwt expired or invalid signature)
 
-    return payload;
+  return payload;
 }
 ```
 
 ## Instalação
 
-```
+```javascript
 npm i bcrypt-jwt-module
 ```
 
 ou
 
-```
+```javascript
 yarn add bcrypt-jwt-module
 ```
 
