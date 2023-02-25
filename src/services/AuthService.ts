@@ -11,11 +11,11 @@ export class AuthService implements IAuthService {
     password: string,
     secret: string,
     payload: Payload
-  ): Promise<UserResponse> {
+  ): Promise<UserResponse | false> {
     const isValide = await this.bcrypt.compare(password, payload.password);
 
     if (!isValide) {
-      throw new Error("invalid credentials");
+      return false;
     }
 
     const accessToken = this.jwt.createToken(
@@ -36,6 +36,8 @@ export class AuthService implements IAuthService {
       id: payload.id,
       email: payload.email,
       name: payload.name,
+      profile: payload.profile,
+      username: payload.username,
       accessToken: accessToken,
       refreshToken: refreshToken,
     };
@@ -44,7 +46,7 @@ export class AuthService implements IAuthService {
   validadeRefreshToken(
     token: string,
     secret: string
-  ): { accessToken: string | unknown } {
+  ): { accessToken: string | unknown } | false {
     try {
       const payload = this.jwt.checkToken(token, secret) as { id: string };
 
@@ -57,17 +59,17 @@ export class AuthService implements IAuthService {
         ),
       };
     } catch (err) {
-      throw new Error("invalid refresh token");
+      return false;
     }
   }
 
-  validadeAccessToken(token: string, secret: string): UserId {
+  validadeAccessToken(token: string, secret: string): UserId | false {
     try {
       const payload = this.jwt.checkToken(token, secret) as UserId;
 
       return payload;
     } catch (err) {
-      throw new Error("invalid access token");
+      return false;
     }
   }
 }

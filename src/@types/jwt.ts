@@ -13,6 +13,8 @@ export interface Payload {
   email: string;
   name: string;
   password: string;
+  profile: string;
+  username: string;
 }
 
 export interface Options {
@@ -24,6 +26,8 @@ export interface UserResponse {
   id: string;
   email: string;
   name: string;
+  profile: string;
+  username: string;
   accessToken: string;
   refreshToken: string;
 }

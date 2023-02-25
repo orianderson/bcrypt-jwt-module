@@ -5,10 +5,10 @@ export interface IAuthService {
     password: string,
     secret: string,
     payload: Payload
-  ): Promise<UserResponse>;
+  ): Promise<UserResponse | false>;
   validadeRefreshToken(
     token: string,
     secret: string
-  ): { accessToken: string | unknown };
-  validadeAccessToken(token: string, secret: string): UserId;
+  ): { accessToken: string | unknown } | false;
+  validadeAccessToken(token: string, secret: string): UserId | false;
 }
