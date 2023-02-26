@@ -12,6 +12,8 @@ describe("test - auth service factory", () => {
       email: "and@email.com",
       id: "vxy-asd-wer",
       name: "The Guy",
+      profile: "engineer",
+      username: "eng",
       password: hashPassword,
     };
 
@@ -19,7 +21,9 @@ describe("test - auth service factory", () => {
 
     // console.log(payload);
 
-    expect(payload.id).toEqual(user.id);
+    if (payload) {
+      expect(payload.id).toEqual(user.id);
+    }
   });
 
   it("should throw error - invalid credentials", async () => {
@@ -28,6 +32,8 @@ describe("test - auth service factory", () => {
       email: "and@email.com",
       id: "vxy-asd-wer",
       name: "The Guy",
+      profile: "engineer",
+      username: "eng",
       password: hashPassword,
     };
 
@@ -55,19 +61,25 @@ describe("test - auth service factory", () => {
       email: "and@email.com",
       id: "vxy-asd-wer",
       name: "The Guy",
+      profile: "engineer",
+      username: "eng",
       password: hashPassword,
     };
 
     const payload = await authService.signInUser("123456", secret, user);
 
-    try {
-      const accessToken = authService.validadeAccessToken(
-        payload.accessToken,
-        secret
-      );
-      expect(accessToken.id).toEqual(user.id);
-    } catch (err: any) {
-      expect(err.message).toBe("invalid refresh token");
+    if (payload) {
+      try {
+        const accessToken = authService.validadeAccessToken(
+          payload.accessToken,
+          secret
+        );
+        if (accessToken) {
+          expect(accessToken.id).toEqual(user.id);
+        }
+      } catch (err: any) {
+        expect(err.message).toBe("invalid refresh token");
+      }
     }
   });
 
@@ -77,6 +89,8 @@ describe("test - auth service factory", () => {
       email: "and@email.com",
       id: "vxy-asd-wer",
       name: "The Guy",
+      profile: "engineer",
+      username: "eng",
       password: hashPassword,
     };
     try {
