@@ -76,7 +76,7 @@ export class AuthService implements IAuthService {
       }
 
       return {
-        id: payload.value._id,
+        id: payload.value.id,
       };
     } catch (err) {
       return false;

@@ -4,7 +4,7 @@ export interface DecodeOptions {
 }
 
 export interface JwtPayload {
-  _id?: string;
+  id?: string;
   exp?: number | undefined;
 }
 
