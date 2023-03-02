@@ -48,12 +48,16 @@ export class AuthService implements IAuthService {
     secret: string
   ): { accessToken: string | unknown } | false {
     try {
-      const payload = this.jwt.checkToken(token, secret) as { id: string };
+      const payload = this.jwt.checkToken(token, secret);
+
+      if (payload.isLeft()) {
+        return false;
+      }
 
       return {
         accessToken: this.jwt.createToken(
           {
-            id: payload.id,
+            id: payload.value,
           },
           { secret: secret, expiresIn: "15m" }
         ),
@@ -65,9 +69,15 @@ export class AuthService implements IAuthService {
 
   validadeAccessToken(token: string, secret: string): UserId | false {
     try {
-      const payload = this.jwt.checkToken(token, secret) as UserId;
+      const payload = this.jwt.checkToken(token, secret);
 
-      return payload;
+      if (payload.isLeft()) {
+        return false;
+      }
+
+      return {
+        id: payload.value._id,
+      };
     } catch (err) {
       return false;
     }
