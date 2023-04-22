@@ -14,6 +14,7 @@ export interface Payload {
   name: string;
   password: string;
   profile: string;
+  active: boolean;
   username: string;
 }
 
@@ -27,6 +28,7 @@ export interface UserResponse {
   email: string;
   name: string;
   profile: string;
+  active: boolean;
   username: string;
   accessToken: string;
   refreshToken: string;

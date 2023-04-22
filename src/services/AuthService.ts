@@ -1,5 +1,5 @@
-import { Payload, UserResponse, UserId } from "./../@types";
-import { IBcryptService, IJwtService, IAuthService } from "../interfaces";
+import { Payload, UserResponse, UserId } from './../@types';
+import { IBcryptService, IJwtService, IAuthService } from '../interfaces';
 
 export class AuthService implements IAuthService {
   constructor(
@@ -22,14 +22,14 @@ export class AuthService implements IAuthService {
       {
         id: payload.id,
       },
-      { secret: secret, expiresIn: "15m" }
+      { secret: secret, expiresIn: '15m' }
     ) as string;
 
     const refreshToken = this.jwt.createToken(
       {
         id: payload.id,
       },
-      { secret: secret, expiresIn: "3d" }
+      { secret: secret, expiresIn: '3d' }
     ) as string;
 
     return {
@@ -38,6 +38,7 @@ export class AuthService implements IAuthService {
       name: payload.name,
       profile: payload.profile,
       username: payload.username,
+      active: payload.active,
       accessToken: accessToken,
       refreshToken: refreshToken,
     };
@@ -59,7 +60,7 @@ export class AuthService implements IAuthService {
           {
             id: payload.value,
           },
-          { secret: secret, expiresIn: "15m" }
+          { secret: secret, expiresIn: '15m' }
         ),
       };
     } catch (err) {

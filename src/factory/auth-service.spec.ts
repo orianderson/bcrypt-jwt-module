@@ -1,23 +1,24 @@
-import { Payload, UserResponse } from "@src/@types";
-import { authService } from "./createAuhService";
-import { BcryptService } from "../modules";
+import { Payload, UserResponse } from '@src/@types';
+import { authService } from './createAuhService';
+import { BcryptService } from '../modules';
 
 const bcrypt = new BcryptService();
-const secret = "secret";
+const secret = 'secret';
 
-describe("test - auth service factory", () => {
-  it("should return user response", async () => {
-    const hashPassword = await bcrypt.hash("123456");
+describe('test - auth service factory', () => {
+  it('should return user response', async () => {
+    const hashPassword = await bcrypt.hash('123456');
     const user: Payload = {
-      email: "and@email.com",
-      id: "vxy-asd-wer",
-      name: "The Guy",
-      profile: "engineer",
-      username: "eng",
+      email: 'and@email.com',
+      id: 'vxy-asd-wer',
+      name: 'The Guy',
+      profile: 'engineer',
+      username: 'eng',
+      active: false,
       password: hashPassword,
     };
 
-    const payload = await authService.signInUser("123456", secret, user);
+    const payload = await authService.signInUser('123456', secret, user);
 
     // console.log(payload);
 
@@ -26,47 +27,49 @@ describe("test - auth service factory", () => {
     }
   });
 
-  it("should throw error - invalid credentials", async () => {
-    const hashPassword = await bcrypt.hash("123456");
+  it('should throw error - invalid credentials', async () => {
+    const hashPassword = await bcrypt.hash('123456');
     const user: Payload = {
-      email: "and@email.com",
-      id: "vxy-asd-wer",
-      name: "The Guy",
-      profile: "engineer",
-      username: "eng",
+      email: 'and@email.com',
+      id: 'vxy-asd-wer',
+      name: 'The Guy',
+      profile: 'engineer',
+      username: 'eng',
+      active: false,
       password: hashPassword,
     };
 
     try {
-      const payload = await authService.signInUser("1234", secret, user);
+      const payload = await authService.signInUser('1234', secret, user);
     } catch (err: any) {
-      expect(err.message).toBe("invalid credentials");
+      expect(err.message).toBe('invalid credentials');
     }
   });
 
-  it("should throw error - invalid refresh token", () => {
+  it('should throw error - invalid refresh token', () => {
     try {
       const accessToken = authService.validadeRefreshToken(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
         secret
       );
     } catch (err: any) {
-      expect(err.message).toBe("invalid refresh token");
+      expect(err.message).toBe('invalid refresh token');
     }
   });
 
-  it("should return user id", async () => {
-    const hashPassword = await bcrypt.hash("123456");
+  it('should return user id', async () => {
+    const hashPassword = await bcrypt.hash('123456');
     const user: Payload = {
-      email: "and@email.com",
-      id: "vxy-asd-wer",
-      name: "The Guy",
-      profile: "engineer",
-      username: "eng",
+      email: 'and@email.com',
+      id: 'vxy-asd-wer',
+      name: 'The Guy',
+      profile: 'engineer',
+      username: 'eng',
+      active: false,
       password: hashPassword,
     };
 
-    const payload = await authService.signInUser("123456", secret, user);
+    const payload = await authService.signInUser('123456', secret, user);
 
     if (payload) {
       try {
@@ -78,28 +81,29 @@ describe("test - auth service factory", () => {
           expect(accessToken.id).toEqual(user.id);
         }
       } catch (err: any) {
-        expect(err.message).toBe("invalid refresh token");
+        expect(err.message).toBe('invalid refresh token');
       }
     }
   });
 
-  it("should throw error invalid access token", async () => {
-    const hashPassword = await bcrypt.hash("123456");
+  it('should throw error invalid access token', async () => {
+    const hashPassword = await bcrypt.hash('123456');
     const user: Payload = {
-      email: "and@email.com",
-      id: "vxy-asd-wer",
-      name: "The Guy",
-      profile: "engineer",
-      username: "eng",
+      email: 'and@email.com',
+      id: 'vxy-asd-wer',
+      name: 'The Guy',
+      profile: 'engineer',
+      username: 'eng',
+      active: false,
       password: hashPassword,
     };
     try {
       const accessToken = authService.validadeAccessToken(
-        "eyJhbGciOiJIUzI1NiIsInR5cCIJ",
+        'eyJhbGciOiJIUzI1NiIsInR5cCIJ',
         secret
       );
     } catch (err: any) {
-      expect(err.message).toBe("invalid access token");
+      expect(err.message).toBe('invalid access token');
     }
   });
 });
