@@ -14,7 +14,7 @@ export interface Payload {
   name: string;
   password: string;
   profile: string;
-  active: boolean;
+  active?: boolean;
   username: string;
 }
 
