@@ -1,7 +1,7 @@
-import { Payload, UserResponse, UserId } from './../@types';
+import { Payload, UserId } from './../@types';
 import { IBcryptService, IJwtService, IAuthService } from '../interfaces';
 
-export class AuthService implements IAuthService {
+export class AuthService<I extends Payload> implements IAuthService<I> {
   constructor(
     private readonly bcrypt: IBcryptService,
     private readonly jwt: IJwtService
@@ -10,9 +10,11 @@ export class AuthService implements IAuthService {
   async signInUser(
     password: string,
     secret: string,
-    payload: Payload
-  ): Promise<UserResponse | false> {
+    payload: I
+  ): Promise<I | false> {
     const isValide = await this.bcrypt.compare(password, payload.password);
+
+    delete payload['password'];
 
     if (!isValide) {
       return false;
@@ -21,6 +23,7 @@ export class AuthService implements IAuthService {
     const accessToken = this.jwt.createToken(
       {
         id: payload.id,
+        role: payload.profile,
       },
       { secret: secret, expiresIn: '15m' }
     ) as string;
@@ -33,12 +36,7 @@ export class AuthService implements IAuthService {
     ) as string;
 
     return {
-      id: payload.id,
-      email: payload.email,
-      name: payload.name,
-      profile: payload.profile,
-      username: payload.username,
-      active: payload.active,
+      ...payload,
       accessToken: accessToken,
       refreshToken: refreshToken,
     };
@@ -58,7 +56,8 @@ export class AuthService implements IAuthService {
       return {
         accessToken: this.jwt.createToken(
           {
-            id: payload.value,
+            id: payload.value.id,
+            role: payload.value.role,
           },
           { secret: secret, expiresIn: '15m' }
         ),
@@ -78,6 +77,7 @@ export class AuthService implements IAuthService {
 
       return {
         id: payload.value.id,
+        role: payload.value.role,
       };
     } catch (err) {
       return false;

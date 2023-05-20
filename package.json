@@ -1,6 +1,6 @@
 {
   "name": "bcrypt-jwt-module",
-  "version": "2.0.8",
+  "version": "2.1.0",
   "main": "dist/index.js",
   "license": "MIT",
   "author": "Anderson Oliveira",

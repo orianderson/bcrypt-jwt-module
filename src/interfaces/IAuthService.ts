@@ -1,11 +1,7 @@
-import { Payload, UserResponse, UserId } from "./../@types";
+import { UserId } from './../@types';
 
-export interface IAuthService {
-  signInUser(
-    password: string,
-    secret: string,
-    payload: Payload
-  ): Promise<UserResponse | false>;
+export interface IAuthService<T> {
+  signInUser(password: string, secret: string, payload: T): Promise<T | false>;
   validadeRefreshToken(
     token: string,
     secret: string

@@ -1,4 +1,4 @@
-import { Payload, UserResponse } from '@src/@types';
+import { Payload } from '@src/@types';
 import { authService } from './createAuhService';
 import { BcryptService } from '../modules';
 
@@ -13,14 +13,11 @@ describe('test - auth service factory', () => {
       id: 'vxy-asd-wer',
       name: 'The Guy',
       profile: 'engineer',
-      username: 'eng',
       active: false,
       password: hashPassword,
     };
 
     const payload = await authService.signInUser('123456', secret, user);
-
-    // console.log(payload);
 
     if (payload) {
       expect(payload.id).toEqual(user.id);
@@ -34,7 +31,6 @@ describe('test - auth service factory', () => {
       id: 'vxy-asd-wer',
       name: 'The Guy',
       profile: 'engineer',
-      username: 'eng',
       active: false,
       password: hashPassword,
     };
@@ -64,7 +60,6 @@ describe('test - auth service factory', () => {
       id: 'vxy-asd-wer',
       name: 'The Guy',
       profile: 'engineer',
-      username: 'eng',
       active: false,
       password: hashPassword,
     };
@@ -93,7 +88,6 @@ describe('test - auth service factory', () => {
       id: 'vxy-asd-wer',
       name: 'The Guy',
       profile: 'engineer',
-      username: 'eng',
       active: false,
       password: hashPassword,
     };
